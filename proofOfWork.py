@@ -6,6 +6,7 @@ POW系统构建区块的过程一般称为“挖矿”（mine）
 
 import hashlib
 import time
+from utils import time_log
 
 
 # sha256哈希值
@@ -13,22 +14,6 @@ def sha256(data):
     sha = hashlib.sha256()
     sha.update(data.encode('utf-8'))
     return sha.hexdigest()
-
-
-# 记录POW的工作时间
-def time_log(flag=0):
-    def showtime(func):
-        def wrapper(a):
-            start_time = time.time()
-            func(a)
-            end_time = time.time()
-            print('%s dot %s spend time: %.2f\n' % (func.__name__, a, (end_time - start_time)))
-            if flag:
-                pass  # 可以写入日志
-
-        return wrapper
-
-    return showtime
 
 
 @time_log(flag=0)
